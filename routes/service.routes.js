@@ -39,7 +39,7 @@ router.get("/:serviceId", async (req, res, next) => {
   }
 });
 //------
-router.put("/:studentId", async (req, res) => {
+router.put("/:serviceId", async (req, res) => {
   try {
     const response = await Service.findByIdAndUpdate(req.params.serviceId, {
       type: req.body.type,

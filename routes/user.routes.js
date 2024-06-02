@@ -1,3 +1,16 @@
-const router = require("express").Router()
+const router = require("express").Router();
 
-module.exports = router
+
+
+//usuario encontrado
+router.get("/:id", isTokenValid, (req, res) => {
+  try {
+    res.status(200).json({ payload: req.payload });
+    console.log("usuario encontrado");
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
+module.exports = router;
