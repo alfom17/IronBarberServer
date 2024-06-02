@@ -39,6 +39,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+//----
 router.put("/:id", async (req, res) => {
   try {
     const response = await Date.findByIdAndUpdate(req.params.id, {
@@ -52,4 +53,15 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+//----
+router.delete("/:id", async (req, res, next)=> {
+    try {
+        const response=
+        await Date.findByIdAndDelete(req.params.id);
+        res.status(202).json(response)
+    } catch (error){
+        console.log(error);
+        next(error)
+    }
+})
 module.exports = router;
