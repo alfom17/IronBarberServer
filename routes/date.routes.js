@@ -1,22 +1,26 @@
 const router = require("express").Router();
 const Date = require("../models/Date_model");
+const {isTokenValid} = require("../middlewares/auth.middleware")
 
 //DATE
 
 //----
-router.post("/", (req, res, next) => {
+router.post("/",isTokenValid, async (req, res, next) => {
+ try{
   Date.create({
     day: req.body.day,
     hour: req.body.hour,
+    user: req.payload._id,
+    service: req.body_id
   })
-    .then(() => {
+    
       console.log("cita creada");
       res.status(201).json;
-    })
-    .catch((error) => {
+    
+}catch(error) {
       console.log(error);
       next(error);
-    });
+    };
 });
 
 //-----

@@ -1,20 +1,22 @@
 const router = require("express").Router();
 const Service = require("../models/Service_model");
+const {isTokenValid} = require("../middlewares/auth.middleware")
 
 //Services
 //-------
-router.post("/", (req, res, next) => {
+router.post("/",isTokenValid, async (req, res, next) => {
+  try{
   Service.create({
     type: req.body.type,
     price: req.body.price,
   })
-    .then(() => {
+    
       console.log("Servicio creado");
       res.status(201).json({ message: "Servicio creado" });
-    })
-    .catch((error) => {
+    }
+    catch(error){
       next(error);
-    });
+    }
 });
 //------
 router.get("/", async (req, res, next) => {
@@ -27,11 +29,11 @@ router.get("/", async (req, res, next) => {
   }
 });
 //----
-router.get("/:serviceId", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   console.log("Encuentra el servicio");
   console.log(req.params);
   try {
-    const response = await Service.findById(req.params.serviceId);
+    const response = await Service.findById(req.params.id);
     res.status(200).json(response);
   } catch (error) {
     console.log(error);
@@ -39,9 +41,9 @@ router.get("/:serviceId", async (req, res, next) => {
   }
 });
 //------
-router.put("/:serviceId", async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
-    const response = await Service.findByIdAndUpdate(req.params.serviceId, {
+    const response = await Service.findByIdAndUpdate(req.params.id, {
       type: req.body.type,
       price: req.body.price,
     });
@@ -52,9 +54,9 @@ router.put("/:serviceId", async (req, res) => {
   }
 });
 //-----
-router.delete("/:serviceId", async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   try {
-    const response = await Service.findByIdAndDelete(req.params.serviceId);
+    const response = await Service.findByIdAndDelete(req.params.id);
     res.status(202).json(response);
   } catch (error) {
     console.log(error);
