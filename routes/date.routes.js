@@ -11,7 +11,7 @@ router.post("/",isTokenValid, async (req, res, next) => {
     day: req.body.day,
     hour: req.body.hour,
     user: req.payload._id,
-    service: req.body_id
+    service: req.body._id
   })
     
       console.log("cita creada");

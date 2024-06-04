@@ -9,6 +9,7 @@ router.post("/",isTokenValid, async (req, res, next) => {
   Service.create({
     type: req.body.type,
     price: req.body.price,
+    status: req.body.status
   })
     
       console.log("Servicio creado");

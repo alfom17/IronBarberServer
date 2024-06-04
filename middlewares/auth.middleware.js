@@ -11,7 +11,17 @@ function isTokenValid(req, res, next) {
     res.status(401).json({ errorMessage: "Token no valido o no existe" });
   }
 }
+function isUserAdmin (req, res, next) {
+
+  console.log(req.payload)
+  if (req.payload.role === "admin") {
+    next() 
+  } else {
+    res.status(401).json({errorMessage: "No tienes permisos"})
+  }
+}
 
 module.exports = {
   isTokenValid,
+  isUserAdmin
 };
