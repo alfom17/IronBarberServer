@@ -8,6 +8,11 @@ const dateSchema = new Schema({
   hourAvailable: {
     type: Number,
   },
+  status:{
+    type: String,
+    enum: ["pendiente", "aceptado", "denegado"],
+    default: "pendiente"
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

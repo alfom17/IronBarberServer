@@ -1,31 +1,30 @@
 const router = require("express").Router();
 const Date = require("../models/Date_model");
-const {isTokenValid} = require("../middlewares/auth.middleware")
+const { isTokenValid } = require("../middlewares/auth.middleware");
 
 //DATE
 
 //----
-router.post("/",isTokenValid, async (req, res, next) => {
- try{
-  Date.create({
-    dayAvailable: req.body.day,
-    hourAvailable: req.body.hour,
-    user: req.payload._id
-  })
-    
-      
-      res.status(201).json("okey");
-    
-}catch(error) {
-      console.log(error);
-      next(error);
-    };
+router.post("/", isTokenValid, async (req, res, next) => {
+  try {
+    Date.create({
+      dayAvailable: req.body.dayAvailable,
+      hourAvailable: req.body.hourAvailable,
+      status: req.body.status,
+      user: req.payload._id,
+    });
+
+    res.status(201).json("okey");
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 });
 
 //-----
 router.get("/", async (req, res, next) => {
   try {
-    const response = await Date.find().populate("user", "username")
+    const response = await Date.find().populate("user", "username");
     res.status(200).json(response);
   } catch (error) {
     next(error);
@@ -63,6 +62,17 @@ router.delete("/:id", async (req, res, next) => {
     res.status(202).json(response);
   } catch (error) {
     console.log(error);
+    next(error);
+  }
+});
+//---
+router.patch("/:id/:status", async (req, res, next) => {
+  try {
+    const response = await Date.findByIdAndUpdate(req.params.id, {
+      status: req.params.status,
+    });
+    res.status(200).json(response);
+  } catch (error) {
     next(error);
   }
 });

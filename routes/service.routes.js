@@ -1,22 +1,21 @@
 const router = require("express").Router();
 const Service = require("../models/Service_model");
-const {isTokenValid} = require("../middlewares/auth.middleware")
+const { isTokenValid } = require("../middlewares/auth.middleware");
 
 //Services
 //-------
-router.post("/",isTokenValid, async (req, res, next) => {
-  try{
-  Service.create({
-    type: req.body.type,
-    status: req.body.status
-  })
-    
-      console.log("Servicio creado");
-      res.status(201).json({ message: "Servicio creado" });
-    }
-    catch(error){
-      next(error);
-    }
+router.post("/", isTokenValid, async (req, res, next) => {
+  try {
+    Service.create({
+      type: req.body.type,
+      status: req.body.status,
+    });
+
+    console.log("Servicio creado");
+    res.status(201).json({ message: "Servicio creado" });
+  } catch (error) {
+    next(error);
+  }
 });
 //------
 router.get("/", async (req, res, next) => {
