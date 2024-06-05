@@ -4,9 +4,9 @@ const User = require("../models/User_model");
 
 
 //usuario encontrado
-router.get("/:id", isTokenValid, async (req, res, next) => {
+router.get("/", isTokenValid, async (req, res, next) => {
   try {
-    const response = await User.findById(req.params.id)
+    const response = await User.findById(req.payload._id)
     res.status(200).json(response);
     console.log("usuario encontrado");
   } catch (error) {

@@ -8,7 +8,6 @@ router.post("/",isTokenValid, async (req, res, next) => {
   try{
   Service.create({
     type: req.body.type,
-    price: req.body.price,
     status: req.body.status
   })
     

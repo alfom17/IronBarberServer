@@ -7,6 +7,7 @@ function isTokenValid(req, res, next) {
     const payload = jwt.verify(token, process.env.TOKEN_SECRET);
 
     req.payload = payload;
+    next()
   } catch (error) {
     res.status(401).json({ errorMessage: "Token no valido o no existe" });
   }

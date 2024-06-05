@@ -8,14 +8,13 @@ const {isTokenValid} = require("../middlewares/auth.middleware")
 router.post("/",isTokenValid, async (req, res, next) => {
  try{
   Date.create({
-    day: req.body.day,
-    hour: req.body.hour,
-    user: req.payload._id,
-    service: req.body._id
+    dayAvailable: req.body.day,
+    hourAvailable: req.body.hour,
+    user: req.payload._id
   })
     
-      console.log("cita creada");
-      res.status(201).json;
+      
+      res.status(201).json("okey");
     
 }catch(error) {
       console.log(error);
@@ -26,7 +25,7 @@ router.post("/",isTokenValid, async (req, res, next) => {
 //-----
 router.get("/", async (req, res, next) => {
   try {
-    const response = await Date.find();
+    const response = await Date.find().populate("user", "username")
     res.status(200).json(response);
   } catch (error) {
     next(error);
