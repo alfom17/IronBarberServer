@@ -22,7 +22,7 @@ router.post("/", isTokenValid, async (req, res, next) => {
 });
 
 //-----
-router.get("/user", async (req, res, next) => {
+router.get("/",isTokenValid, async (req, res, next) => {
   try {
     const response = await Date.find().populate("user", "username");
     res.status(200).json(response);
@@ -32,21 +32,24 @@ router.get("/user", async (req, res, next) => {
 });
 
 //----
-router.get("/:id", async (req, res, next) => {
+router.get("/:id",isTokenValid, async (req, res, next) => {
   try {
-    const response = await Date.find();
+    const response = await Date.findById(req.params.id);
     res.status(200).json(response);
   } catch (error) {
+    console.log(error);
     next(error);
   }
 });
 
+
 //----
-router.put("/:id", async (req, res) => {
+router.patch("/:id",isTokenValid, async (req, res, next) => {
   try {
     const response = await Date.findByIdAndUpdate(req.params.id, {
-      day: req.body.day,
-      hour: req.body.hour,
+      dayAvailable: req.body.dayAvailable,
+      hourAvailable: req.body.hourAvailable,
+      status:"pendiente"
     });
     res.status(200).json(response);
   } catch (error) {
@@ -56,7 +59,7 @@ router.put("/:id", async (req, res) => {
 });
 
 //----
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id",isTokenValid, async (req, res, next) => {
   try {
     const response = await Date.findByIdAndDelete(req.params.id);
     res.status(202).json(response);
@@ -66,7 +69,7 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 //---
-router.patch("/:id/:status", async (req, res, next) => {
+router.patch("/:id/:status",isTokenValid, async (req, res, next) => {
   try {
     const response = await Date.findByIdAndUpdate(req.params.id, {
       status: req.params.status,
@@ -77,14 +80,15 @@ router.patch("/:id/:status", async (req, res, next) => {
   }
 });
 //---
-router.get("/:user", async (req, res, next) => {
+router.get("/by-user/:id",isTokenValid, async (req, res, next) => {
   try {
-    const response = await Date.find({user:req.params.user})
+    const response = await Date.find({user:req.params.id})
     res.status(200).json(response);
   } catch (error) {
     next(error);
   }
 });
 //---
+
 
 module.exports = router;

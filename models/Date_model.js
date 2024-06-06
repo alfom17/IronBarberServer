@@ -16,7 +16,7 @@ const dateSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-  },
+  }
 });
 
 const Date = mongoose.model("Date", dateSchema);

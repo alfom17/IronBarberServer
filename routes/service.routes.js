@@ -6,11 +6,11 @@ const { isTokenValid } = require("../middlewares/auth.middleware");
 //-------
 router.post("/", isTokenValid, async (req, res, next) => {
   try {
+    console.log(req.body);
     Service.create({
       type: req.body.type,
-      status: req.body.status,
+      servicedUser: req.body.servicedUser,
     });
-
     console.log("Servicio creado");
     res.status(201).json({ message: "Servicio creado" });
   } catch (error) {
@@ -18,7 +18,7 @@ router.post("/", isTokenValid, async (req, res, next) => {
   }
 });
 //------
-router.get("/", async (req, res, next) => {
+router.get("/",isTokenValid, async (req, res, next) => {
   try {
     const response = await Service.find();
     console.log(response);
@@ -28,7 +28,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 //----
-router.get("/:id", async (req, res, next) => {
+router.get("/:id",isTokenValid, async (req, res, next) => {
   console.log("Encuentra el servicio");
   console.log(req.params);
   try {
@@ -40,7 +40,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 //------
-router.put("/:id", async (req, res) => {
+router.put("/:id",isTokenValid, async (req, res) => {
   try {
     const response = await Service.findByIdAndUpdate(req.params.id, {
       type: req.body.type,
@@ -53,7 +53,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 //-----
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id",isTokenValid, async (req, res, next) => {
   try {
     const response = await Service.findByIdAndDelete(req.params.id);
     res.status(202).json(response);

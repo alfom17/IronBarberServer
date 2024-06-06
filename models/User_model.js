@@ -22,6 +22,10 @@ const userSchema = new Schema(
       type: String,
       enum: ["user", "admin"],
       default: "user"
+    },
+    img:{
+      type: String,
+      
     }
   },
   {
