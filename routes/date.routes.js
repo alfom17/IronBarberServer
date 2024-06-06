@@ -22,7 +22,7 @@ router.post("/", isTokenValid, async (req, res, next) => {
 });
 
 //-----
-router.get("/", async (req, res, next) => {
+router.get("/user", async (req, res, next) => {
   try {
     const response = await Date.find().populate("user", "username");
     res.status(200).json(response);
@@ -79,10 +79,12 @@ router.patch("/:id/:status", async (req, res, next) => {
 //---
 router.get("/:user", async (req, res, next) => {
   try {
-    const response = await Date.findById(req.params.user)
+    const response = await Date.find({user:req.params.user})
     res.status(200).json(response);
   } catch (error) {
     next(error);
   }
 });
+//---
+
 module.exports = router;
