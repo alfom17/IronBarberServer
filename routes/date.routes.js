@@ -76,4 +76,13 @@ router.patch("/:id/:status", async (req, res, next) => {
     next(error);
   }
 });
+//---
+router.get("/:user", async (req, res, next) => {
+  try {
+    const response = await Date.findById(req.params.user)
+    res.status(200).json(response);
+  } catch (error) {
+    next(error);
+  }
+});
 module.exports = router;
