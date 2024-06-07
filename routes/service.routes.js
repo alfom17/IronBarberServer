@@ -1,10 +1,10 @@
 const router = require("express").Router();
 const Service = require("../models/Service_model");
-const { isTokenValid } = require("../middlewares/auth.middleware");
+const { isTokenValid , isUserAdmin } = require("../middlewares/auth.middleware");
 
 //Services
 //-------
-router.post("/", isTokenValid, async (req, res, next) => {
+router.post("/", isUserAdmin , async (req, res, next) => {
   try {
     console.log(req.body);
     Service.create({
