@@ -1,17 +1,19 @@
 const router = require("express").Router();
 const Date = require("../models/Date_model");
+
 const { isTokenValid } = require("../middlewares/auth.middleware");
 
 //DATE
 
 //----
-router.post("/", isTokenValid, async (req, res, next) => {
+router.post("/",isTokenValid, async (req, res, next) => {
   try {
     Date.create({
       dayAvailable: req.body.dayAvailable,
       hourAvailable: req.body.hourAvailable,
-      status: req.body.status,
+      
       user: req.payload._id,
+      serviceId: req.body.serviceId
     });
 
     res.status(201).json("okey");
@@ -89,6 +91,13 @@ router.get("/by-user/:id",isTokenValid, async (req, res, next) => {
   }
 });
 //---
-
+// router.patch("/add-services/:id", async(req, res, next)=>{
+//   try{
+//     const response = await Date.findByIdAndUpdate(req.params.id, {service:req.params.})
+//     res.status(200).json(response)
+//   } catch (error) {
+//   next(error)
+//   }
+// })
 
 module.exports = router;

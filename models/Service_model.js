@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const serviceSchema = new Schema({
   type:{
     type: String,
-    enum:["Corte de pelo", "Cuidado de barba", "Completo"]
+    
   } ,
   //el status pueder pendiente, aceptada y rechazada
   
