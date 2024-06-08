@@ -1,4 +1,4 @@
-# Project Name
+# IronBarber
 
 ## [See the App!](https://ironbarber.netlify.app)
 
@@ -137,6 +137,4 @@ Service model
 [Deploy Link](https://ironbarber.netlify.app)
 
 
-### Slides
 
-[Slides Link](www.your-slides-url-here.com)

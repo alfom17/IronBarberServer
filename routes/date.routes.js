@@ -2,6 +2,7 @@ const router = require("express").Router();
 const Date = require("../models/Date_model");
 
 const { isTokenValid } = require("../middlewares/auth.middleware");
+const { populate } = require("../models/Service_model");
 
 //DATE
 
@@ -26,7 +27,7 @@ router.post("/",isTokenValid, async (req, res, next) => {
 //-----
 router.get("/",isTokenValid, async (req, res, next) => {
   try {
-    const response = await Date.find().populate("user", "username");
+    const response = await Date.find().populate("user", "username" ).populate("serviceId", "type");
     res.status(200).json(response);
   } catch (error) {
     next(error);
