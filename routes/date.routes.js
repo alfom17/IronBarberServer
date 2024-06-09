@@ -27,7 +27,7 @@ router.post("/",isTokenValid, async (req, res, next) => {
 //-----
 router.get("/",isTokenValid, async (req, res, next) => {
   try {
-    const response = await Date.find().populate("user", "username" ).populate("serviceId", "type");
+    const response = await Date.find().populate("user", "username imageUrl" ).populate("serviceId", "type");
     res.status(200).json(response);
   } catch (error) {
     next(error);
