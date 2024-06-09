@@ -19,4 +19,7 @@ router.use("/auth", authRouter);
 const uploadRoutes = require("./upload.routes");
 router.use("/upload", uploadRoutes);
 
+// const imgRoutes = require("./image.routes.js");
+// router.use("/image", imgRoutes);
+
 module.exports = router;

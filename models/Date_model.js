@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const dateSchema = new Schema({
   dayAvailable: {
-    type: Number,
+    type: String,
   },
   hourAvailable: {
     type: Number,

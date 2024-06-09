@@ -14,5 +14,15 @@ router.get("/", isTokenValid, async (req, res, next) => {
     next(error);
   }
 });
-
+//
+router.patch("/:id/image", isTokenValid, async (req, res, next)=>{
+  try{
+    await User.findByIdAndUpdate(req.payload._id, {
+      imageUrl: req.body.imageUrl
+    })
+    res.sendStatus(200)
+  } catch (error){
+    next(error)
+  }
+})
 module.exports = router;
