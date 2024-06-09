@@ -15,7 +15,7 @@ router.get("/", isTokenValid, async (req, res, next) => {
   }
 });
 //
-router.patch("/:id/image", isTokenValid, async (req, res, next)=>{
+router.post("/image", isTokenValid, async (req, res, next)=>{
   try{
     await User.findByIdAndUpdate(req.payload._id, {
       imageUrl: req.body.imageUrl
